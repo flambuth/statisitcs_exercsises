@@ -73,24 +73,13 @@ print(f"The probability of seeing two data science students on both billboards i
 # that I will be able to buy some poptarts on Friday afternoon?
 
 #Makes 1D array with 5 observations, each chosen randomly between 3 and 4.5
-ptart_consumption = np.random.randint(low = 30, high = 45, size = 5)
-ptart_consumption = ptart_consumption.astype(float)/10
-
-#This is the one trial of the randomly selected array of 3-4.5 cookies consumed per day over 
-#5 days.
-monday = 17
-for i in ptart_consumption:
-    monday += monday - i
-#I need to repeat the ptart consumption rng and repeat the trial that subtracts from monday. 
-#Measure how many times monday is above 1
 def find_friday_poptarts(n_trials):
-    n_trials = 1000
-    #Sets up a random 5 day pattern of ptart consumption
-    ptart_consumption = np.random.randint(low = 30, high = 45, size = 5)
-    ptart_consumption = ptart_consumption.astype(float)/10
-
-    
-
+    #makes an array, each element is a (1,5) array. 
+    trials = np.asarray([np.random.randint(low = 1, high = 6, size = 5) for i in range(n_trials)])
+    #find the sum of those four elements and subtract it from 17.
+    friday = trials.sum(axis=1) - 17
+    #These are the trials that have one cookie available friday morning.
+    return f"There is a {(friday >= 1).sum()/n_trials}% chance there will be 1 cookie on Friday afternoon."
 
 # 5 Compare Heights
 
