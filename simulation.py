@@ -1,5 +1,7 @@
 #What happened to propellerheads? They had that one really good album.
 import numpy as np
+import pandas as pd
+import fredstats as fstats
 
 
 # 1
@@ -20,3 +22,7 @@ df[0] == df[1]
 doubles = len(df[df[0] == df[1]])
 #So dividing that value by the n_trials is the likelhood of doubles
 doubles/n_trials
+
+# 2
+# If you flip 8 coins, what is the probability of getting exactly 3 heads? What is the 
+# probability of getting more than 3 heads?
