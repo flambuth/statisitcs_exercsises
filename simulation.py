@@ -40,3 +40,26 @@ atleast_3 = (head_flips.sum(axis=1) > 2).sum()
 
 print(f"The chances of getting exactly 3 heads out of 8 coins is {exactly_3/len(head_flips)}%.")
 print(f"The chances of getting exactly 3 heads out of 8 coins is {atleast_3/len(head_flips)}%.")
+
+# 3
+# There are approximitely 3 web development cohorts for every 1 data science cohort at Codeup. 
+# Assuming that Codeup randomly selects an alumni to put on a billboard, what are the odds that 
+# the two billboards I drive past both have data science students on them?
+
+#Set the amount of trials to run. There are 2 billboards and a 1:3 ratio of data to web
+#                                                              25:75, or 1 in 4
+n_tests = 100
+n_billboards = 2
+p_data = .25
+
+#Generate a 100 trials.
+billboards = np.random.random((n_tests, n_billboards))               
+#Skim out the ones that were less than the chances of picking a data scientist out of all
+#codeup students
+#This array is a 1D array, that is n_tests long. Each true is a row that had two Trues,
+#meaning there was 2 data students in the trial
+exactly_2 = (billboards < p_data).sum(axis=1) == 2).sum()
+#sum them up to see how many, and then divide it by the n_trials
+exactly_2.sum()/n_tests
+
+print(f"The probability of seeing two data science students on both billboards is {exactly_2.sum()/n_tests}%.")
