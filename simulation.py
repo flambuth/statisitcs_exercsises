@@ -1,7 +1,6 @@
 #What happened to propellerheads? They had that one really good album.
 import numpy as np
 import pandas as pd
-import fredstats as fstats
 
 
 # 1
@@ -26,3 +25,18 @@ doubles/n_trials
 # 2
 # If you flip 8 coins, what is the probability of getting exactly 3 heads? What is the 
 # probability of getting more than 3 heads?
+n_flips = 100
+n_coins = 8
+flips = np.random.choice(['heads','tails'], n_flips*n_coins)
+#Make a bunch of 8 coines per flip trials. Each are a row.
+flips = flips.reshape(n_flips, n_coins)
+#Evaluates everything in the np array. So each row is 8 true or falses
+head_flips = flips == 'heads'
+#Count the Trues
+head_flips.sum(axis=1)
+#From that one dimensional array, you can skim out the 3's or => 2's to answer the question
+exactly_3 = (head_flips.sum(axis=1) == 3).sum()
+atleast_3 = (head_flips.sum(axis=1) > 2).sum()
+
+print(f"The chances of getting exactly 3 heads out of 8 coins is {exactly_3/len(head_flips)}%.")
+print(f"The chances of getting exactly 3 heads out of 8 coins is {atleast_3/len(head_flips)}%.")
