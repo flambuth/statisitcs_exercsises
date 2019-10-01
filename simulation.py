@@ -103,8 +103,31 @@ def find_chance_of_woman_larger_than_man(n_trials):
 # When installing anaconda on a student's computer, there's a 1 in 250 chance that the download 
 # is corrupted and the installation fails. What are the odds that after having 50 students 
 # download anaconda, no one has an installation issue? 100 students?
+p_corrupt = float(1/250)
+
+#Make 1000 batches of 50 installs. Each row is a 1D array with 50 elements.
+n_trials = 100
+installs = np.random.random((n_trials,50)) 
+#This sums up 
+((installs < p_corrupt).sum())/n_trials
+
+def find_corrupt_installs(installbase, n_trials):
+    p_corrupt = 1/250
+    installs = np.random.random((installbase,n_trials)) 
+    (((installs < p_corrupt) != 0).sum())/
+    return installs
+
 
 # What is the probability that we observe an installation issue within the first 150 students 
 # that download anaconda?
 
 # How likely is it that 450 students all download anaconda without an issue?
+
+# 7
+# There's a 70% chance on any given day that there will be at least one food truck at Travis 
+# Park. However, you haven't seen a food truck there in 3 days. How unlikely is this?
+# How likely is it that a food truck will show up sometime this week?
+
+# 8
+# 23 people are in the same room, what are the odds that two of them share a birthday? 
+# What if it's 20 people? 40?
