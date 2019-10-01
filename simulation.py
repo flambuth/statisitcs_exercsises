@@ -48,12 +48,13 @@ print(f"The chances of getting exactly 3 heads out of 8 coins is {atleast_3/len(
 
 #Set the amount of trials to run. There are 2 billboards and a 1:3 ratio of data to web
 #                                                              25:75, or 1 in 4
-n_tests = 100
+#Driving by 2 billboards on one million occasions
+n_tests = 1000000
 n_billboards = 2
 p_data = .25
 
 #Generate a 100 trials.
-billboards = np.random.random((n_tests, n_billboards))               
+billboards = np.random.random((n_tests, n_billboards))
 #Skim out the ones that were less than the chances of picking a data scientist out of all
 #codeup students
 #This array is a 1D array, that is n_tests long. Each true is a row that had two Trues,
@@ -62,4 +63,47 @@ exactly_2 = (billboards < p_data).sum(axis=1) == 2).sum()
 #sum them up to see how many, and then divide it by the n_trials
 exactly_2.sum()/n_tests
 
+#That is pretty close to what the online binomial calculator i used.
 print(f"The probability of seeing two data science students on both billboards is {exactly_2.sum()/n_tests}%.")
+
+
+# 4
+# Codeup students buy, on average, 3 poptart packages (+- 1.5) a day from the snack vending 
+# machine. If on monday the machine is restocked with 17 poptart packages, how likely is it 
+# that I will be able to buy some poptarts on Friday afternoon?
+
+#Makes 1D array with 5 observations, each chosen randomly between 3 and 4.5
+ptart_consumption = np.random.randint(low = 30, high = 45, size = 5)
+ptart_consumption = ptart_consumption.astype(float)/10
+
+#This is the one trial of the randomly selected array of 3-4.5 cookies consumed per day over 
+#5 days.
+monday = 17
+for i in ptart_consumption:
+    monday += monday - i
+#I need to repeat the ptart consumption rng and repeat the trial that subtracts from monday. 
+#Measure how many times monday is above 1
+def find_friday_poptarts(n_trials):
+    n_trials = 1000
+    #Sets up a random 5 day pattern of ptart consumption
+    ptart_consumption = np.random.randint(low = 30, high = 45, size = 5)
+    ptart_consumption = ptart_consumption.astype(float)/10
+
+    
+
+
+# 5 Compare Heights
+
+# Men have an average height of 178 cm and standard deviation of 8cm.
+# Women have a mean of 170, sd = 6cm.
+# If a man and woman are chosen at random, P(woman taller than man)?
+
+# 6
+# When installing anaconda on a student's computer, there's a 1 in 250 chance that the download 
+# is corrupted and the installation fails. What are the odds that after having 50 students 
+# download anaconda, no one has an installation issue? 100 students?
+
+# What is the probability that we observe an installation issue within the first 150 students 
+# that download anaconda?
+
+# How likely is it that 450 students all download anaconda without an issue?
