@@ -87,19 +87,16 @@ def find_friday_poptarts(n_trials):
 # Women have a mean of 170, sd = 6cm.
 # If a man and woman are chosen at random, P(woman taller than man)?
 
-#establish the mean(mu) and stdev(sigma) of each population
-male_mu, male_sigma = 178, 8                                                     
-female_mu, female_sigma = 170, 6 
-males = np.random.normal(male_mu, male_sigma, 1000)
-females = np.random.normal(female_mu, female_sigma, 1000)
-fem_bigger_than_males = ((females > males).sum())/1000
-
 def find_chance_of_woman_larger_than_man(n_trials):
+    #The height numbers for men and women
     male_mu, male_sigma = 178, 8                                                     
     female_mu, female_sigma = 170, 6 
-    males = np.random.normal(male_mu, male_sigma, 1000)
-    females = np.random.normal(female_mu, female_sigma, 1000)
-    return ((females > males).sum())/1000    
+    #Make a big random set of each sex
+    males = np.random.normal(male_mu, male_sigma, n_trials)
+    females = np.random.normal(female_mu, female_sigma, n_trials)
+    #Return the boolean masked outcome of female being larger than a male. The sum is 
+    #the trials where the woman was larger. 
+    return ((females > males).sum())/n_trials 
 
 
 # 6
