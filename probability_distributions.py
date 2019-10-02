@@ -149,3 +149,12 @@ np.percentile(grades, 30)
 print(f"The range of grades within the third decile from the bottoms is {np.percentile(grades, 20)} thru {np.percentile(grades, 30)}.")
 
 # If I have a GPA of 3.5, what percentile am I in?
+#Find the amount of grades in the trial set that is above 3.5. The mean function divides that sum by the n_trials
+#Subtract that from 1, since you want to find what percentile was less than this. So it'd be 96th percentile.
+1 - (grades > 3.5).mean()
+
+
+# 3
+# A marketing website has an average click-through rate of 2%. One day they observe 4326 visitors and 97 
+# click-throughs. How likely is it that this many people or more click through?
+customers = np.random.random((n_tests, 4326))
