@@ -149,6 +149,69 @@ find_one_corrupt_chance(1000,450)
 # Park. However, you haven't seen a food truck there in 3 days. How unlikely is this?
 # How likely is it that a food truck will show up sometime this week?
 
+#Set the table:
+n_trials = 1000 
+n_days = 7 
+p_truck = .7
+
+#Find likelihood for first 3 days, at .3 a piece, all having no food trucsk
+
+#Make the random array. Trials are rows, each row has 7 days/column/fields
+weekdays = np.random.random((n_trials, n_days))   
+weekdays < .3
+
+#This is the first 3 columns of each trials
+first3 = weekdays[:,[0,1,2]]
+#Of those first3days on each trial, now many had 3 trues?
+no_truck_on_first3 = ((first3 < p_truck).sum(axis=1) == 3).sum()
+no_truck_on_first3/n_trials
+
+def find_chance_of_truck(n_trials, n_days, p_truck=.7)
+    weekdays = np.random.random((n_trials, n_days))
+    truck_shows_up = ((weekdays < p_truck).sum(axis=1) >= 1).sum()
+    return truck_shows_up/n_trials
+
+#There are four days left in the week. What are the chances any of those 4 days has a truck day?
+find_chance_of_truck(1000,4)
+
 # 8
 # 23 people are in the same room, what are the odds that two of them share a birthday? 
 # What if it's 20 people? 40?
+
+#Lets rephrase that into some terms to put on the table:
+# Calculate the probability of generating a duplicate random number after
+# generating "n" random numbers in the range "d"
+
+n_trials=1000
+n_people=23
+days_in_the_year = list(range(1,366))
+birthdays = np.random.choice(days_in_the_year, 23)
+
+def generate_birthdays(n_people):
+    return np.random.choice(days_in_the_year, n_people)
+
+#lets make a lot of sets of 23 birthdays
+
+x = [generate_birthdays() for i in range(n_trials+1) ]
+
+#This counts the length of each row. I should make a function that counts uniques
+
+def count_uniques(nparray):
+    return len(np.unique(nparray))
+
+
+z = np.apply_along_axis(count_uniques,1,x)
+#This is the sum of all the trials that had some non-unique numbers 
+(z < 23).sum()
+
+#Lets make it a function!
+def find_birthday_paradox_chance(n_trials, n_people):
+    days_in_the_year = list(range(1,366))
+    def generate_birthdays(n_people):
+        return np.random.choice(days_in_the_year, n_people)
+    x = [generate_birthdays(n_people) for i in range(n_trials) ]
+    def count_uniques(nparray):
+        return len(np.unique(nparray))
+    z = np.apply_along_axis(count_uniques,1,x)
+    return ((z < n_people).sum())/n_trials
+#I don't think it works. It everything above 90 is a 100%. oh well. I came close!
