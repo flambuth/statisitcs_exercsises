@@ -105,23 +105,44 @@ def find_chance_of_woman_larger_than_man(n_trials):
 # download anaconda, no one has an installation issue? 100 students?
 p_corrupt = float(1/250)
 
-#Make 1000 batches of 50 installs. Each row is a 1D array with 50 elements.
-n_trials = 100
-installs = np.random.random((n_trials,50)) 
-#This sums up 
-((installs < p_corrupt).sum())/n_trials
 
-def find_corrupt_installs(installbase, n_trials):
-    p_corrupt = 1/250
-    installs = np.random.random((installbase,n_trials)) 
-    (((installs < p_corrupt) != 0).sum())/
-    return installs
+#Set the table. Terms are how many trials we'll simulate. How many hosts will be installed and
+#have a chance to be corrupt, at the rate of 1 out of 250 will be.
+n_trials = 1000 
+n_hosts = 50 
+p_corruption = 1/250 
 
+#Generate the n_trials, each a nparray of 50, which is how many hosts got conda installed. So 1000x50  
+installs = np.random.random((n_trials, n_hosts))   
+
+#evaluate which of these random values are less than 0.004, the 1/250 translated to decimal
+#The sum of each row is collapsed into one value, which is the sum of the "Trues" in the row.
+(installs < p_corruption).sum(axis=1)
+#This is the rows that had no corrupt installs. So divide that by the n_tests and that is 
+#the percentage of 50 hosts installs that had zero corruption.
+no_corruption = ((installs < p_corruption).sum(axis=1) == 0).sum()
+no_corruption/n_trials
+
+def find_no_corruption_chance(n_trials, n_hosts, p_corrupt=1/250):
+    installs = np.random.random((n_trials, n_hosts)) 
+    no_corruption = ((installs < p_corruption).sum(axis=1) == 0).sum()
+    return no_corruption/n_trials
+
+find_no_corruption_chance(1000, 50)
+find_no_corruption_chance(1000, 100)
 
 # What is the probability that we observe an installation issue within the first 150 students 
 # that download anaconda?
 
+def find_one_corrupt_chance(n_trials, n_hosts, p_corrupt=1/250):
+    installs = np.random.random((n_trials, n_hosts)) 
+    no_corruption = ((installs < p_corruption).sum(axis=1) >= 1).sum()
+    return no_corruption/n_trials
+
+find_one_corrupt_chance(1000, 150)
+
 # How likely is it that 450 students all download anaconda without an issue?
+find_one_corrupt_chance(1000,450)
 
 # 7
 # There's a 70% chance on any given day that there will be at least one food truck at Travis 
