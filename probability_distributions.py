@@ -45,6 +45,9 @@ print(f"The range of grades within the third decile from the bottoms is {stateU_
 # Would a student with a 2.8 grade point average qualify for this scholarship?
 stateU_grades.ppf(.20) < 2.8 < stateU_grades.ppf(.30)
 
+# If I have a GPA of 3.5, what percentile am I in?
+stateU_grades.cdf(3.5)
+
 # 3
 # A marketing website has an average click-through rate of 2%. One day they 
 # observe 4326 visitors and 97 click-throughs. 
@@ -120,3 +123,29 @@ lunchline_distro.cdf(45)
 # a drive-up window follows a Poisson distribution with a mean of 2 cars. Make 
 # a chart of this distribution and answer these questions concerning the 
 # probability of cars waiting at the drive-up window.
+n_tests = 1000
+
+
+noon_drivethru = np.random.random((n_tests, n_billboards))
+
+# 2
+# Grades of State University graduates are normally distributed with a mean of 3.0 and 
+# a standard deviation of .3. 
+mu = 3.0
+sdev = .3
+n_trials = 1000
+grades = np.random.normal(3.0, .3, n_trials)
+# Calculate the following:
+# What grade point average is required to be in the top 5% of the graduating class?
+np.percentile(grades, 95)
+# # What GPA constitutes the bottom 15% of the class?
+np.percentile(grades, 15)
+# An eccentric alumnus left scholarship money for students in the third decile from the bottom of their 
+# class. Determine the range of the third decile. Would a student with a 2.8 grade point average qualify 
+# for this scholarship?
+np.percentile(grades, 20)
+np.percentile(grades, 30)
+
+print(f"The range of grades within the third decile from the bottoms is {np.percentile(grades, 20)} thru {np.percentile(grades, 30)}.")
+
+# If I have a GPA of 3.5, what percentile am I in?
