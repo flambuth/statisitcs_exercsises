@@ -58,10 +58,10 @@ billboards = np.random.random((n_tests, n_billboards))
 #Skim out the ones that were less than the chances of picking a data scientist out of all
 #codeup students
 #This array is a 1D array, that is n_tests long. Each true is a row that had two Trues,
-#meaning there was 2 data students in the trial
-exactly_2 = (billboards < p_data).sum(axis=1) == 2).sum()
+# meaning there was 2 data students in the trial
+exactly_2 = ((billboards < p_data).sum(axis=1) == 2).sum()
 #sum them up to see how many, and then divide it by the n_trials
-exactly_2.sum()/n_tests
+exactly_2/n_tests
 
 #That is pretty close to what the online binomial calculator i used.
 print(f"The probability of seeing two data science students on both billboards is {exactly_2.sum()/n_tests}%.")
@@ -81,6 +81,13 @@ def find_friday_poptarts(n_trials):
     #These are the trials that have one cookie available friday morning.
     return f"There is a {(friday >= 1).sum()/n_trials}% chance there will be 1 cookie on Friday afternoon."
 
+#Post-review
+
+pt_consumption = np.round(np.random.normal(3,1.5, (n,5)))
+pt_consumption
+
+pt_consumption = np.where(pt_consumption < 0, 0, pt_consumption)
+(pt_consumption).sum(axis=1) < 17).mean()
 # 5 Compare Heights
 
 # Men have an average height of 178 cm and standard deviation of 8cm.
@@ -98,6 +105,7 @@ def find_chance_of_woman_larger_than_man(n_trials):
     #the trials where the woman was larger. 
     return ((females > males).sum())/n_trials 
 
+#   return (females > males).mean() would also get the job done
 
 # 6
 # When installing anaconda on a student's computer, there's a 1 in 250 chance that the download 
@@ -125,7 +133,7 @@ no_corruption/n_trials
 
 def find_no_corruption_chance(n_trials, n_hosts, p_corrupt=1/250):
     installs = np.random.random((n_trials, n_hosts)) 
-    no_corruption = ((installs < p_corruption).sum(axis=1) == 0).sum()
+    no_corruption = ((installs <= p_corruption).sum(axis=1) == 0).sum()
     return no_corruption/n_trials
 
 find_no_corruption_chance(1000, 50)
@@ -136,13 +144,19 @@ find_no_corruption_chance(1000, 100)
 
 def find_one_corrupt_chance(n_trials, n_hosts, p_corrupt=1/250):
     installs = np.random.random((n_trials, n_hosts)) 
-    no_corruption = ((installs < p_corruption).sum(axis=1) >= 1).sum()
+    no_corruption = ((installs <= p_corruption).sum(axis=1) >= 1).sum()
     return no_corruption/n_trials
 
 find_one_corrupt_chance(1000, 150)
 
 # How likely is it that 450 students all download anaconda without an issue?
 find_one_corrupt_chance(1000,450)
+
+# Review Notes
+1 - ((np.random.random(n,50) < p_corruption).sum(axis=1) > 0).mean()
+
+#Using weighted random choice
+downloads = np.random.choice(["Success!","failure"], (n_trials, 450), p=[249/250, 1/250]) 
 
 # 7
 # There's a 70% chance on any given day that there will be at least one food truck at Travis 
@@ -153,17 +167,17 @@ find_one_corrupt_chance(1000,450)
 n_trials = 1000 
 n_days = 7 
 p_truck = .7
+p_notruck = .3
 
 #Find likelihood for first 3 days, at .3 a piece, all having no food trucsk
 
 #Make the random array. Trials are rows, each row has 7 days/column/fields
 weekdays = np.random.random((n_trials, n_days))   
-weekdays < .3
 
 #This is the first 3 columns of each trials
 first3 = weekdays[:,[0,1,2]]
 #Of those first3days on each trial, now many had 3 trues?
-no_truck_on_first3 = ((first3 < p_truck).sum(axis=1) == 3).sum()
+no_truck_on_first3 = ((first3 < p_notruck).sum(axis=1) == 3).sum()
 no_truck_on_first3/n_trials
 
 def find_chance_of_truck(n_trials, n_days, p_truck=.7)
@@ -173,6 +187,14 @@ def find_chance_of_truck(n_trials, n_days, p_truck=.7)
 
 #There are four days left in the week. What are the chances any of those 4 days has a truck day?
 find_chance_of_truck(1000,4)
+
+
+# Post review
+#This will evauate true if there was a food truck. The all method evaluates true is all the elements
+#in that row are all true.
+#Then add up all those Trues. Those are the ones where the food truck did not show up
+(first3<p_notruck).all(axis=1).sum()
+
 
 # 8
 # 23 people are in the same room, what are the odds that two of them share a birthday? 
