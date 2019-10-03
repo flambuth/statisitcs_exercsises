@@ -84,7 +84,7 @@ student_cleaning_distro = stats.binom(dailystudents, .03)
 
 # How likely is it that the break area gets cleaned up each day?
 #about 60 students per day at .03 chance a piece. So one or more means it got cleaned up.
-chance_clean_per_day = student_cleaning_distro.sf(1)
+chance_clean_per_day = student_cleaning_distro.sf(0)
 
 # How likely is it that it goes two days without getting cleaned up?
 chance_dirty_per_day = 1 - chance_clean_per_day
@@ -92,7 +92,7 @@ chance_dirty_per_day = 1 - chance_clean_per_day
 chance_dirty_per_day * chance_dirty_per_day
 # All week?
     # Permutation of seven consecutive days with a .48 chance of staying dirty.
-chance_clean_per_day**7
+chance_dirty_per_day**7
 
 # 6
 # You want to get lunch at La Panaderia, but notice that the line is usually very 
