@@ -191,4 +191,16 @@ print(f"The range of grades within the third decile from the bottoms is {np.perc
 # 3
 # A marketing website has an average click-through rate of 2%. One day they observe 4326 visitors and 97 
 # click-throughs. How likely is it that this many people or more click through?
+n_tests = 50
 customers = np.random.random((n_tests, 4326))
+sample_clickrate = 97/4326
+
+customers < sample_clickrate
+
+#This is a 1D array of that is n_trials long. It element is how many clicks happened in the trial.
+simulated_clicks = (customers < sample_clickrate).sum(axis=1)
+simulated_clicks.mean()
+simulated_clicks.std()
+
+sim_clicks_distro = stats.norm(simulated_clicks.mean(), simulated_clicks.std())
+sim_clicks_distro.sf(97)
