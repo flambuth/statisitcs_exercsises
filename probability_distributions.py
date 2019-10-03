@@ -19,10 +19,10 @@ cars_at_noon = stats.poisson(2)
 cars_at_noon.pmf(0)
 
 # What is the probability that 3 or more cars come through the drive through?
-cars_at_noon.sf(3)
+cars_at_noon.sf(2)
 
 # How likely is it that the drive through gets at least 1 car?
-cars_at_noon.sf(1)
+cars_at_noon.sf(0)
 
 # 2
 # Grades of State University graduates are normally distributed with a mean of 
@@ -65,7 +65,7 @@ clicks.sf(97)
 # to save time, you put down random probabilities as the answer to each question.
 # What is the probability that at least one of your first 60 answers is correct?
 round_error_distro = stats.binom(60, .01)
-round_error_distro.sf(1)
+round_error_distro.sf(0)
 
 
 #Well its gonna be a .sf() method to answers, since its asking for a "at least one" answer. Which
@@ -237,7 +237,7 @@ homework_trials = np.random.random((n_tests, 60))
 # What is the probability that at least one of your first 60 answers is correct?
 
 #
-(homework_trials<.01).sum(axis=1).mean()
+(homework_trials<=.01).sum(axis=1).mean()
 #Which is .599. 
 #Different than my other method. Don't know why.
 
