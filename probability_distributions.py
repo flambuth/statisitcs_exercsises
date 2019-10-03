@@ -160,7 +160,16 @@ salary_distro.isf(.05)
 n_tests = 1000
 
 
-noon_drivethru = np.random.random((n_tests, n_billboards))
+x = np.random.poisson(2,n_tests)
+#
+#  What is the probability that no cars drive up in the noon hour?
+(x == 0).sum()/len(x)
+
+# What is the probability that 3 or more cars come through the drive through?
+(x > 2).sum()/len(x)
+
+# How likely is it that the drive through gets at least 1 car?
+(x > 0).sum()/len(x)
 
 # 2
 # Grades of State University graduates are normally distributed with a mean of 3.0 and 
@@ -204,3 +213,41 @@ simulated_clicks.std()
 
 sim_clicks_distro = stats.norm(simulated_clicks.mean(), simulated_clicks.std())
 sim_clicks_distro.sf(97)
+
+# 4
+# You are working on some statistics homework consisting of 100 questions where all of the answers 
+# are a probability rounded to the hundreths place. Looking to save time, you put down random 
+# probabilities as the answer to each question.
+
+n_tests = 1000
+
+#1000 trials with 60 questions each. 
+homework_trials = np.random.random((n_tests, 60))
+
+# What is the probability that at least one of your first 60 answers is correct?
+
+#
+(homework_trials<.01).sum(axis=1).mean()
+#Which is .599. 
+#Different than my other method. Don't know why.
+
+
+# 5
+# The codeup staff tends to get upset when the student break area is not cleaned up. Suppose that 
+# there's a 3% chance that any one student cleans the break area when they visit it, and, on any 
+# given day, about 90% of the 3 active cohorts of 22 students visit the break area. How likely is it 
+# that the break area gets cleaned up each day? How likely is it that it goes two days without 
+# getting cleaned up? All week?
+
+
+# 6
+# You want to get lunch at La Panaderia, but notice that the line is usually very long at lunchtime. 
+# After several weeks of careful observation, you notice that the average number of people in line 
+# when your lunch break starts is normally distributed with a mean of 15 and standard deviation of 3. 
+# If it takes 2 minutes for each person to order, and 10 minutes from ordering to getting your food, 
+# what is the likelihood that you have at least 15 minutes left to eat your food before you have to go 
+# back to class? Assume you have one hour for lunch, and ignore travel time to and from La Panaderia.
+n_trials = 1000
+lunchline_trials = np.random.norm(40, 3, n_trials)
+
+(lunchline_trials<45).mean()
