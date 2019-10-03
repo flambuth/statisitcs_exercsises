@@ -151,6 +151,16 @@ salary_distro.cdf(80000)-salary_distro.cdf(65000)
 salary_distro.isf(.05)
 
 
+
+
+
+
+
+
+
+
+
+
 ##############
 # 1
 # A bank found that the average number of cars waiting during the noon hour at 
