@@ -238,7 +238,18 @@ homework_trials = np.random.random((n_tests, 60))
 # given day, about 90% of the 3 active cohorts of 22 students visit the break area. How likely is it 
 # that the break area gets cleaned up each day? How likely is it that it goes two days without 
 # getting cleaned up? All week?
+n_trials = 1000
+cleaning_trials = np.random.random(n_trials, 90)
 
+#This sees if there are any randos that came up less than .03 in each trial of 90 students. Counts the
+#trials that had at least one True.
+per_day_clean_chance = (np.any(cleaning_trials<.03, axis=1)).mean()
+
+# How likely is it that it goes two days without getting cleaned up?
+(1-per_day_clean_chance) ** 2
+
+# All week?
+(1-per_day_clean_chance) ** 7
 
 # 6
 # You want to get lunch at La Panaderia, but notice that the line is usually very long at lunchtime. 
@@ -251,3 +262,25 @@ n_trials = 1000
 lunchline_trials = np.random.norm(40, 3, n_trials)
 
 (lunchline_trials<45).mean()
+
+# 7
+# Connect to the employees database and find the average salary of current employees, along with the 
+# standard deviation. Model the distribution of employees salaries with a normal distribution and 
+# answer the following questions:
+
+#I think I'll make a normal curve with the mu and sigma from what I find from the theoretical
+#work I already did for this exercise.
+
+salary_mean=63810.744836143705
+salary_std=16904.831259952276
+
+salary_randos = np.random.normal(salary_mean, salary_std, 1000)
+
+# What percent of employees earn less than 60,000?
+(salary_randos<60000).mean()
+# What percent of employees earn more than 95,000?
+(salary_randos>95000).mean()
+# What percent of employees earn between 65,000 and 80,000?
+((salary_randos<80000).sum() - (salary_randos>65000).sum())/len(salary_randos)
+# What do the top 5% of employees make?
+np.percentile(salary_randos, 95)
