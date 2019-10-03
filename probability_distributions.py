@@ -1,9 +1,10 @@
 #I don't know much about computers. 
 #The simulation methods will start 1-6, after the distrubtion methods 1-6.
 
-
+import pandas as pd
 import numpy as np
 from scipy import stats
+from env import host, user, password
 np.random.seed(123)
 
 
@@ -115,6 +116,39 @@ lunchline_distro = stats.norm(40, 3)
 lunchline_distro.cdf(45)
 
 
+# 7
+# Connect to the employees database and find the average salary of current 
+# employees, along with the standard deviation. Model the distribution of 
+# employees salaries with a normal distribution and answer the following 
+# questions:
+
+db = 'employees'
+def get_db_url(username, hostname, password, database):
+    url = f'mysql+pymysql://{username}:{password}@{hostname}/{database}'
+    return url
+
+url = get_db_url(user, host, password, db)
+emps_df = pd.read_sql('SELECT * FROM employees', url)
+salary_df = pd.read_sql('SELECT * FROM salaries', url)
+
+#Find mean() and stdev() of the column in salary_df
+salary_mean = salary_df['salary'].mean()
+salary_std = salary_df['salary'].std()
+
+salary_distro = stats.norm(salary_mean, salary_std)
+salary_distro.cdf()
+
+# What percent of employees earn less than 60,000?
+salary_distro.cdf(60000)
+
+# What percent of employees earn more than 95,000?
+salary_distro.sf(95000)
+
+# What percent of employees earn between 65,000 and 80,000?
+salary_distro.cdf(80000)-salary_distro.cdf(65000)
+
+# What do the top 5% of employees make?
+salary_distro.isf(.05)
 
 
 ##############
