@@ -269,9 +269,14 @@ per_day_clean_chance = (np.any(cleaning_trials<.03, axis=1)).mean()
 # what is the likelihood that you have at least 15 minutes left to eat your food before you have to go 
 # back to class? Assume you have one hour for lunch, and ignore travel time to and from La Panaderia.
 n_trials = 1000
-lunchline_trials = np.random.norm(40, 3, n_trials)
+#I forgot to double the st dev, since i doubled the measurement of 1people==2minutes
+#adding the 10 minutes for waiting for the order ought to be handled outside the normal curve generation
+lunchline_trials = np.random.norm(30, 6, n_trials)
 
-(lunchline_trials<45).mean()
+#The greater than statement should be greater than longst possible time.
+#45 minutes, - 10 for the food prep time
+
+(lunchline_trials<35).mean()
 
 # 7
 # Connect to the employees database and find the average salary of current employees, along with the 
