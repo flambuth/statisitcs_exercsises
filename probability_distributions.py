@@ -249,7 +249,7 @@ homework_trials = np.random.random((n_tests, 60))
 # that the break area gets cleaned up each day? How likely is it that it goes two days without 
 # getting cleaned up? All week?
 n_trials = 1000
-cleaning_trials = np.random.random(n_trials, 90)
+cleaning_trials = np.random.random((n_trials, 90))
 
 #This sees if there are any randos that came up less than .03 in each trial of 90 students. Counts the
 #trials that had at least one True.
@@ -271,7 +271,7 @@ per_day_clean_chance = (np.any(cleaning_trials<.03, axis=1)).mean()
 n_trials = 1000
 #I forgot to double the st dev, since i doubled the measurement of 1people==2minutes
 #adding the 10 minutes for waiting for the order ought to be handled outside the normal curve generation
-lunchline_trials = np.random.norm(30, 6, n_trials)
+lunchline_trials = np.random.normal(30, 6, n_trials)
 
 #The greater than statement should be greater than longst possible time.
 #45 minutes, - 10 for the food prep time
