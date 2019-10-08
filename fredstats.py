@@ -22,3 +22,5 @@ def make_df_from_db(url, table):
 # url = get_db_url(user, host, password, db)
 # emps_df = pd.read_sql('SELECT * FROM employees', url)
 # salary_df = pd.read_sql('SELECT * FROM salaries', url)
+
+
